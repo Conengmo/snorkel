@@ -1,12 +1,13 @@
 import numpy as np
 import itertools
 
+
 def bike_human_nums(object_names):
-    '''Returns: (int) categorical index, where
+    """Returns: (int) categorical index, where
             0 --> more people than bikes
             1 --> more bikes than people
             2 --> same number of bikes and people
-    '''
+    """
     names = object_names.split(' , ')[1:]
     num_person = 0
     num_bicycles = 0
@@ -29,7 +30,7 @@ def bike_human_nums(object_names):
 
 
 def bike_human_distance(object_names, object_x, object_y):
-    '''Returns: (np.float) distance between closest person/bike '''
+    """Returns: (np.float) distance between closest person/bike """
 
     # get coordinates (positions) of bikes/people
     names = object_names.split(' , ')[1:]
@@ -38,12 +39,12 @@ def bike_human_distance(object_names, object_x, object_y):
     for i in range(np.shape(names)[0]):
         name = names[i]
         if ('person' in name) or ('man' in name) or ('woman' in name) or ('girl' in name) or ('boy' in name) or ('people' in name):
-            person_position = np.concatenate((person_position, np.array([[object_x[i],object_y[i]]])))
+            person_position = np.concatenate((person_position, np.array([[object_x[i], object_y[i]]])))
         if ('cycle' in name) or ('bike' in name) or ('bicycle' in name):
-            bicycle_position = np.concatenate((bicycle_position, np.array([[object_x[i],object_y[i]]])))
+            bicycle_position = np.concatenate((bicycle_position, np.array([[object_x[i], object_y[i]]])))
     
-    person_position = person_position[2:,:]
-    bicycle_position = bicycle_position[2:,:]
+    person_position = person_position[2:, :]
+    bicycle_position = bicycle_position[2:, :]
     
     if (np.shape(bicycle_position)[0] == 0) or (np.shape(person_position)[0] == 0):
         return -1
@@ -69,7 +70,7 @@ def bike_human_distance(object_names, object_x, object_y):
 
 
 def bike_human_size(object_names, object_area):
-    '''Returns: (int) pixelwise area difference between humans/bikes '''
+    """Returns: (int) pixelwise area difference between humans/bikes """
 
     names = object_names.split(' , ')[1:]
     person_area = np.array([0])

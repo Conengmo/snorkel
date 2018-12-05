@@ -48,7 +48,7 @@ class DataLoader(object):
             self.data = json.load(json_data)
 
     
-    def show_examples(self, annotated=False, label=-1):
+    def show_examples(self, annotated=False, label=-1, idxs=None):
 
         def show_image(vg_idx):
             image_url = self.data[vg_idx]['url']
@@ -62,7 +62,6 @@ class DataLoader(object):
             plt.axis('off')
             plt.imshow(I)
             ax = plt.gca()
-            
             for i in range(np.shape(self.val_object_y[idx])[0]):
                 ax.add_patch(Rectangle((self.val_object_x[idx][i], self.val_object_y[idx][i]),
                                         self.val_object_width[idx][i],
@@ -71,8 +70,11 @@ class DataLoader(object):
                                         edgecolor='cyan',
                                         linewidth=1))
 
-        split_idx = np.where(self.val_ground == label)[0]
-        idx_list = np.random.choice(split_idx,3)
+        if idxs is None:
+            split_idx = np.where(self.val_ground == label)[0]
+            idx_list = np.random.choice(split_idx,3)
+        else:
+            idx_list = idxs
 
         plt.figure(figsize=(15,3))
         for j,i in enumerate(idx_list):
